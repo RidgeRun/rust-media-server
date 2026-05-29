@@ -1,0 +1,9 @@
+snapshot:
+  pipeline_template: >
+    interpipesrc listen-to=${interpipe_sink} is-live=true allow-renegotiation=true format=time !
+    queue max-size-buffers=1 leaky=downstream !
+    videoconvertscale !
+    videorate !
+    video/x-raw,framerate=1/10 !
+    jpegenc !
+    multifilesink location=${filename}

@@ -1,0 +1,28 @@
+[package]
+name = "media-server"
+version = "0.1.0"
+build = "build.rs"
+edition = "2021"
+description = "Media server using Gstd Rust API."
+license = "MIT"
+publish = false
+
+[lib]
+name = "media_server"
+path = "src/lib.rs"
+
+[[bin]]
+name = "media_server"
+path = "src/bin/media_server.rs"
+
+[dependencies]
+yaml-rust2 = "0.11.0"
+glib = "0.21"
+gstc = { git = "https://github.com/RidgeRun/gstd-1.x.git", package = "gstc" }
+ctrlc = "3.4"
+chrono = "0.4"
+clap = { version = "4.5", features = ["derive"] }
+
+[build-dependencies]
+pkg-config = "0.3.16"
+bindgen = "0.72"

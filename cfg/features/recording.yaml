@@ -1,0 +1,9 @@
+recording:
+  pipeline_template: >
+    interpipesrc listen-to=${interpipe_sink} is-live=true allow-renegotiation=true format=time !
+    queue max-size-buffers=1 leaky=downstream !
+    videoconvertscale !
+    queue max-size-buffers=1 leaky=downstream ! 
+    x264enc tune=zerolatency bitrate=2000 speed-preset=veryfast !
+    h264parse config-interval=1 ! 
+    splitmuxsink location=${filename} max-size-time=5000000000 muxer-factory=mp4mux

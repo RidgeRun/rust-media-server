@@ -1,0 +1,35 @@
+source:
+  id: "cam1"
+  name: "rear_camera"
+  enabled: true
+
+  interpipe: 
+    interpipe_sink: "cam1_sink"
+
+  source_pipeline:
+    pipeline_id: "cam1_source"
+    description: >
+      videotestsrc is-live=true !
+      video/x-raw,width=640,height=480,framerate=30/1,format=NV12 !
+      queue max-size-buffers=1 leaky=downstream !
+      videoconvertscale !
+      interpipesink name=${interpipe_sink} sync=false async=false
+
+features:
+  recording:
+    enabled: false
+    pipeline_id: "cam1_recording"
+    overrides:
+      filename: "recordings/cam1_recording_%05d.mp4"
+
+  snapshot:
+    enabled: false
+    pipeline_id: "cam1_snapshot"
+    overrides:
+      filename: "snapshots/cam1_snapshot_%05d.jpg"
+
+  streaming:
+    enabled: true
+    pipeline_id: "cam1_stream"
+    overrides:
+      port: "5006"

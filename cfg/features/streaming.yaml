@@ -1,0 +1,10 @@
+streaming:
+  pipeline_template: >
+    interpipesrc listen-to=${interpipe_sink} is-live=true allow-renegotiation=true format=time !
+    queue max-size-buffers=1 leaky=downstream !
+    videoconvertscale !
+    queue max-size-buffers=1 leaky=downstream !
+    x264enc tune=zerolatency bitrate=2000 speed-preset=veryfast !
+    h264parse !
+    rtph264pay config-interval=1 pt=96 !
+    udpsink host=127.0.0.1 port=${port}

@@ -1,0 +1,11 @@
+server:
+  name: "media_server"
+
+sources:
+  - file: "sources/source_cam0.yaml"
+  - file: "sources/source_cam1.yaml"
+
+features:
+  recording: "features/recording.yaml"
+  snapshot: "features/snapshot.yaml"
+  streaming: "features/streaming.yaml"
